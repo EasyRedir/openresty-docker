@@ -4,9 +4,9 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV OPENRESTY_VERSION 1.9.7.4
 ENV OPENRESTY_PREFIX /usr/local/openresty
 
-RUN apt-get update && apt-get install -y libpcre3 libssl1.0.0 libgeoip1 ca-certificates --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y procps libpcre3 libssl1.0.0 libgeoip1 ca-certificates --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
-RUN buildDeps='curl perl make build-essential procps libreadline-dev libncurses5-dev libpcre3-dev libssl-dev libgeoip-dev' \
+RUN buildDeps='curl perl make build-essential libreadline-dev libncurses5-dev libpcre3-dev libssl-dev libgeoip-dev' \
     && set -x \
     && apt-get update && apt-get install -y $buildDeps --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
@@ -49,7 +49,7 @@ RUN buildDeps='curl perl make build-essential procps libreadline-dev libncurses5
        --without-lua_resty_mysql \
        --without-lua_resty_websocket \
        --with-cc-opt='-g -O2 -fPIE -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2' \
-       --with-ld-opt='-Wl,-Bsymbolic-functions -fPIE -pie -Wl,-z,relro -Wl,-z,now' \    
+       --with-ld-opt='-Wl,-Bsymbolic-functions -fPIE -pie -Wl,-z,relro -Wl,-z,now' \
        -j${NPROC} \
     && make -j${NPROC} \
     && make install \
