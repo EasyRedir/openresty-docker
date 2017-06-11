@@ -30,6 +30,8 @@ RUN buildDeps='curl perl make build-essential libreadline-dev libncurses5-dev li
        --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
        --http-scgi-temp-path=/var/cache/nginx/scgi_temp \
        --with-luajit \
+       --with-stream \
+       --with-stream_ssl_module \
        --with-http_geoip_module \
        --with-http_gzip_static_module \
        --with-http_realip_module \
