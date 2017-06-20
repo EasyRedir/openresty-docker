@@ -21,7 +21,7 @@ RUN buildDeps='curl perl make build-essential libreadline-dev libncurses5-dev li
        --sbin-path=/usr/sbin/nginx \
        --conf-path=/etc/nginx/nginx.conf \
        --lock-path=/var/lock/nginx.lock \
-       --pid-path=/var/run/nginx.pid \
+       --pid-path=/run/nginx.pid \
        --http-log-path=/var/log/nginx/access.log \
        --error-log-path=/var/log/nginx/error.log \
        --http-client-body-temp-path=/var/cache/nginx/client_temp \
@@ -39,19 +39,18 @@ RUN buildDeps='curl perl make build-essential libreadline-dev libncurses5-dev li
        --with-http_ssl_module \
        --with-http_sub_module \
        --with-http_v2_module \
-       --without-http_fastcgi_module \
-       --without-http_scgi_module \
-       --without-http_uwsgi_module \
        --with-http_stub_status_module \
+       --with-http_slice_module \
+       --with-http_secure_link_module \
+       --with-http_auth_request_module \
        --with-threads \
+       --with-file-aio \
        --with-ipv6 \
        --with-pcre-jit \
-       --with-sha1=/usr/include/openssl \
-       --with-md5=/usr/include/openssl \
        --without-lua_resty_mysql \
        --without-lua_resty_websocket \
-       --with-cc-opt='-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2' \
-       --with-ld-opt='-Wl,-Bsymbolic-functions -fPIE -pie -Wl,-z,relro -Wl,-z,now' \
+       --with-cc-opt='-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC' \
+       --with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie' \   
        -j${NPROC} \
     && make -j${NPROC} \
     && make install \
