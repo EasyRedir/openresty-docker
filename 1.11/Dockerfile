@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV OPENRESTY_VERSION 1.11.2.3
+ENV OPENRESTY_VERSION 1.11.2.5
 ENV OPENRESTY_PREFIX /usr/local/openresty
 
 RUN apt-get update && apt-get install -y procps libpcre3 libssl1.0.0 libgeoip1 ca-certificates --no-install-recommends && rm -rf /var/lib/apt/lists/*
