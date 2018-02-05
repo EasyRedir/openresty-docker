@@ -4,11 +4,22 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV OPENRESTY_VERSION 1.13.6.1
 ENV OPENRESTY_PREFIX /usr/local/openresty
 
-RUN apt-get update && apt-get install -y procps libpcre3 libssl1.0.0 libgeoip1 ca-certificates --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    locales \
+    procps \
+    libpcre3 \
+    libssl1.0.0 \
+    libgeoip1 \
+    ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN locale-gen en_US.UTF-8
+ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 RUN buildDeps='curl perl make build-essential libreadline-dev libncurses5-dev libpcre3-dev libssl-dev libgeoip-dev' \
     && set -x \
-    && apt-get update && apt-get install -y $buildDeps --no-install-recommends \
+    && apt-get update && apt-get install -y --no-install-recommends $buildDeps \
     && rm -rf /var/lib/apt/lists/* \
     && curl -SL "https://openresty.org/download/openresty-${OPENRESTY_VERSION}.tar.gz" -o openresty.tar.gz \
     && mkdir -p /usr/src/openresty \
