@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV OPENRESTY_VERSION 1.13.6.1
+ENV OPENRESTY_VERSION 1.13.6.2
 ENV OPENRESTY_PREFIX /usr/local/openresty
 
 RUN apt-get update \
